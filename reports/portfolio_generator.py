@@ -18,99 +18,100 @@ def generate_portfolio_case_study(
     total_savings = total_unprot - total_prot
     saving_pct = (total_savings / max(0.0001, total_unprot)) * 100.0
 
-    content = f"""# 🏛️ Portfolio Project : Apex Bank AI FinOps & Resilience Framework
-> **Role** : AI Test Architect & AI FinOps Lead  
-> **Domain** : Tier-1 Banking, High-Risk AI Systems (**EU AI Act Annex III**, **DORA Art. 28**, **Bâle IV**)  
-> **Tech Stack** : Python 3.12, Pytest, Visual Studio Code, PromQL, vLLM (Llama-3-70B), OpenAI/Anthropic APIs, GitHub Actions  
-> **Audit Score** : **100/100 (Grade A - CAB Approved)**
+    content = f"""# 🏛️ Portfolio Showcase: Apex Bank AI FinOps & Resilience Framework
+> **Author**: Jean-Yves GARCIN  
+> **Role**: AI Test Architect & AI FinOps Lead  
+> **Domain**: Tier-1 Banking, Regulated High-Risk AI Systems (**EU AI Act Annex III**, **DORA Art. 28**, **Basel IV**)  
+> **Tech Stack**: Python 3.12, Pytest, Visual Studio Code, PromQL, vLLM (Llama-3-70B), OpenAI/Anthropic APIs, GitHub Actions  
+> **Audit Score**: **100/100 (Grade A - Change Advisory Board Approved)**  
+> **Repository**: [https://github.com/jeanyvesgarcin/bankai-finops-sandbox](https://github.com/jeanyvesgarcin/bankai-finops-sandbox)
 
 ---
 
 ## 📌 Executive Summary
 
-Dans un contexte de déploiement massif de modèles d'IA générative et de LLMs en banque de détail et de financement, les squads sont confrontées au risque de **dérive budgétaire incontrôlée (Cost Drift)**, aux **attaques par déni de portefeuille (Denial of Wallet)** et aux **pannes silencieuses de bascule vers le Cloud**.
+As enterprise banks accelerate the deployment of Generative AI and Large Language Models (LLMs) across retail underwriting, corporate onboarding, and wealth management, delivery squads face critical financial and operational hazards: **uncontrolled token cost drift**, **Denial of Wallet (DoW) attacks**, and **unmonitored silent failovers to public cloud providers**.
 
-En tant qu'**AI Test Architect**, j'ai conçu et déployé ce framework complet de **recette financière continue (Continuous FinOps Testing)** et de **gouvernance Day 0 à Day 2**, permettant de :
-1. **Plafonner le coût par transaction unitaire** (CPIT) à **< 0.0005 €** sur l'octroi de crédit.
-2. **Économiser plus de 75% du budget d'inférence** grâce au maintien du *Prompt Caching*.
-3. **Bloquer 100% des attaques DoW** avant l'appel aux API coûteuses.
-4. **Garantir la conformité réglementaire** avec DORA (résilience opérationnelle) et l'EU AI Act (systèmes haut risque).
-
----
-
-## 🎯 Architecture Technique du Framework
-
-```
-[Flux Bancaires : Octroi, KYC, Copilote RAG]
-                     │
-                     ▼
-       ┌───────────────────────────┐
-       │   QA Pre-Execution Gate   │  ◄── [Anti-DoW Guard : Taille & Pages max]
-       └─────────────┬─────────────┘
-                     ▼
-       ┌───────────────────────────┐
-       │   Prompt Caching Guard    │  ◄── [Détection & Isolation Préfixe statique]
-       └─────────────┬─────────────┘
-                     ▼
-       ┌───────────────────────────┐
-       │    Hybrid Model Router    │
-       │ (Souverain vLLM vs Cloud) │
-       └─────────────┬─────────────┘
-                     ▼
-       ┌───────────────────────────┐
-       │   FallbackCircuitGuard    │  ◄── [Coupure d'urgence si fuite de coût > seuil]
-       └─────────────┬─────────────┘
-                     ▼
-        [Production Banking Delivery]
-```
+As an **AI Test Architect**, I designed and implemented this comprehensive **Continuous AI FinOps Testing Framework** and **Day-0-to-Day-2 Governance Sandbox**, delivering:
+1. **Hard caps on unit cost per transaction (CPIT)** to **< 0.0005 €** across retail credit decisioning.
+2. **Over 75% inference budget savings** through automated prompt caching regression gates.
+3. **100% mitigation of Denial of Wallet attacks** prior to expensive model invocation.
+4. **Guaranteed regulatory compliance** with **DORA Art. 28** (ICT third-party concentration risk) and the **EU AI Act** (Annex III High-Risk Systems).
 
 ---
 
-## 🛡️ Les 4 Scénarios de Chaos & Anomalies Résolus
+## 🎯 Technical Architecture & Control Gates
 
-| Scénario de Risque Réel | Risque Financier Sans Garde | Dispositif Mis en Place par le QA Architect | Économie Réalisée |
+```
+[Banking Workloads: Retail Credit, Corporate KYC, Wealth Copilot]
+                               │
+                               ▼
+                 ┌───────────────────────────┐
+                 │   QA Pre-Execution Gate   │  ◄── [Anti-DoW: Rejects oversized files at 0€ cost]
+                 └─────────────┬─────────────┘
+                               ▼
+                 ┌───────────────────────────┐
+                 │    Prefix Cache Engine    │  ◄── [Prompt Caching: > 80% tokens served at discount]
+                 └─────────────┬─────────────┘
+                               ▼
+                 ┌───────────────────────────┐
+                 │    Hybrid Model Router    │  ◄── [Sovereign on-prem vLLM vs Public Cloud API]
+                 └─────────────┬─────────────┘
+                               ▼
+                 ┌───────────────────────────┐
+                 │   FallbackCircuitGuard    │  ◄── [Sliding window breaker tripping on cost leakage]
+                 └─────────────┬─────────────┘
+                               ▼
+                  [Production Banking Delivery]
+```
+
+---
+
+## 🛡️ The 4 Financial Chaos & Anomaly Scenarios Resolved
+
+| Production Risk Scenario | Unprotected Business Hazard | QA Guardrail Implemented | Benchmark Net Savings |
 | :--- | :--- | :--- | :---: |
-| **Destruction du Cache (Cache-Busting)** | Un développeur introduit un timestamp dynamique dans le prompt système, annulant le cache préfixe. Facture multipliée par 4. | Assertions Pytest sur le `cache_hit_ratio` et isolation des variables dynamiques en fin de payload. | **+{chaos_results[0].savings_eur:.4f} € ({chaos_results[0].savings_percent:.1f}%)** |
-| **Bascule Silencieuse (Silent Fallback)** | Le cluster GPU souverain local tombe ; le trafic bascule en douce sur GPT-4o Cloud sans alerte. | `FallbackCircuitGuard` sur fenêtre glissante qui coupe la bascule après 10 requêtes et passe en mode dégradé. | **+{chaos_results[1].savings_eur:.4f} € ({chaos_results[1].savings_percent:.1f}%)** |
-| **Attaque Denial of Wallet (DoW)** | Envoi de documents KYC de 50 pages (350 KB) pour saturer l'OCR/LLM et épuiser le budget. | Filtre de validation pré-modèle (taille et nb pages) rejetant la requête à coût zéro avant l'appel API. | **+{chaos_results[2].savings_eur:.4f} € ({chaos_results[2].savings_percent:.1f}%)** |
-| **Boucle Folle d'Agent Autonome** | Un agent d'investigation tourne en rond sur 40 itérations à cause d'une condition d'arrêt ambiguë. | `MaxStepBudgetGuard` interrompant l'exécution au 5ème tour avec bascule vers un conseiller humain. | **+{chaos_results[3].savings_eur:.4f} € ({chaos_results[3].savings_percent:.1f}%)** |
+| **1. Prompt Cache Destruction (Cache-Busting)** | A developer prepended a dynamic timestamp/UUID to the system prompt, resetting prefix caching to 0% and tripling API bills. | Automated Pytest assertion on `cache_hit_ratio` and static prompt linting isolating dynamic inputs at the payload tail. | **+{chaos_results[0].savings_eur:.4f} € ({chaos_results[0].savings_percent:.1f}%)** |
+| **2. Silent Cloud Fallback Spill** | On-prem sovereign vLLM GPU cluster crashed (OOM); traffic silently routed to OpenAI GPT-4o with no alerts or budget caps. | Sliding window `FallbackCircuitGuard` tripping after 10 requests and failing over to zero-cost deterministic rule engines. | **+{chaos_results[1].savings_eur:.4f} € ({chaos_results[1].savings_percent:.1f}%)** |
+| **3. Denial of Wallet (DoW) Attack** | Hostile submission of 50-page financial statements (350 KB) aimed at exhausting monthly enterprise token quotas. | Pre-execution validation filter inspecting byte sizes and page counts, rejecting malicious payloads at zero token cost. | **+{chaos_results[2].savings_eur:.4f} € ({chaos_results[2].savings_percent:.1f}%)** |
+| **4. Runaway Autonomous Agent Loop** | Multi-agent compliance investigation trapped in circular corporate hierarchy queries (40 iterations). | `MaxStepBudgetGuard` enforcing a hard cutoff at step 5 with automatic escalation to human compliance officers. | **+{chaos_results[3].savings_eur:.4f} € ({chaos_results[3].savings_percent:.1f}%)** |
 
-**Bilan d'impact global sur le run de benchmark :**
-* **Coût sans garde-fous :** `{total_unprot:.4f} €`
-* **Coût protégé avec framework QA :** `{total_prot:.4f} €`
-* **Économie nette immédiate :** `{total_savings:.4f} € ({saving_pct:.1f}% de gain d'efficience)`
-
----
-
-## 📊 Dimensionnement Day 0 : Arbitrage CapEx GPU vs Cloud OpEx
-
-Pour un volume bancaire de **500 000 dossiers de crédit / mois**, le moteur de dimensionnement a établi l'arbitrage suivant :
-
-* **Solution Cloud Pay-As-You-Go (GPT-4o)** :
-  * Coût mensuel d'inférence : **1 462,50 € / mois**
-  * Risque de fuite de données et dépendance fournisseur tiers (**DORA Art. 28**).
-* **Solution On-Premise Souveraine (Cluster 4x Nvidia A100 - Llama-3-70B)** :
-  * VRAM requise : **38.5 GB** (modèle 4-bit) + **12.8 GB** (KV Cache pour 64 flux concurrents) = **51.3 GB**.
-  * Coût mensuel amorti : **1 800,00 € / mois**.
-  * **Point d'inflexion (Break-Even) :** Rentabilisé dès **615 000 requêtes / mois**.
-* **Recommandation QA soumise au CAB :** Déploiement souverain vLLM local avec disjoncteur Cloud contingenté.
+**Consolidated Benchmark Metrics:**
+* **Unprotected Baseline Cost:** `{total_unprot:.4f} €`
+* **QA Protected Framework Cost:** `{total_prot:.4f} €`
+* **Immediate Net Savings:** `{total_savings:.4f} € ({saving_pct:.1f}% efficiency gain)`
 
 ---
 
-## 📜 Conformité Réglementaire & Quality Gates CI/CD
+## 📊 Day 0 Sizing Engine: CapEx On-Prem GPU vs OpEx Public Cloud
 
-Le pipeline CI/CD GitHub Actions intègre 3 Quality Gates bloquantes :
-1. `CPIT_LIMIT` : Le coût unitaire par transaction ne doit pas excéder **0.0005 €**.
-2. `CACHE_HIT_FLOOR` : Le ratio de prompt caching doit être supérieur à **80.0%**.
-3. `AUDIT_SCANNER_SCORE` : Le scanner d'audit statique et dynamique doit obtenir une note minimale de **90/100**.
+For an enterprise retail workload of **500,000 credit applications / month**, our sizing model established the following financial arbitrage:
 
-Résultat de l'audit automatisé du référentiel : **100.0 / 100 (Grade A - Excellent)**.
+* **Public Cloud Pay-As-You-Go (GPT-4o)**:
+  * Monthly inference expenditure: **1,462.50 € / month**
+  * Inherent data privacy exposure and third-party vendor lock-in (**DORA Art. 28**).
+* **On-Premise Sovereign Cluster (4x Nvidia A100 - Llama-3-70B 4-bit)**:
+  * Required VRAM: **38.5 GB** (model weights) + **12.8 GB** (KV Cache for 64 concurrent streams) = **51.3 GB**.
+  * Amortized monthly server hosting & power: **1,800.00 € / month**.
+  * **Break-Even Inflexion Point:** Cost-effective starting at **615,000 transactions / month**.
+* **QA Recommendation Submitted to Change Advisory Board (CAB):** Deploy on-prem sovereign vLLM as primary engine with quota-restricted public cloud fallback protected by `FallbackCircuitGuard`.
 
 ---
 
-## 🎙️ Pitch Entretien (Comment Présenter ce Projet)
+## 📜 Regulatory Compliance & CI/CD Quality Gates
 
-> *« Dans mon dernier projet chez Apex Bank, j'ai conçu le framework de QA FinOps pour encadrer nos systèmes IA. Mon rôle dépassait le simple test fonctionnel : j'ai mis en place des disjoncteurs financiers, modélisé le coût unitaire au centième de centime d'euro, et protégé la banque contre les attaques Denial of Wallet et les pannes silencieuses de cluster. Ce framework a permis d'économiser 84% des coûts d'inférence tout en garantissant la conformité stricte avec DORA et l'AI Act avant le passage en CAB. »*
+The GitHub Actions CI/CD pipeline enforces 3 blocking Quality Gates:
+1. `CPIT_LIMIT`: Unit cost per transaction must not exceed **0.0005 €**.
+2. `CACHE_HIT_FLOOR`: Prompt caching ratio must remain above **80.0%**.
+3. `AUDIT_SCANNER_SCORE`: Static and dynamic audit scanner must achieve a minimum score of **90/100**.
+
+Current Framework Audit Score: **100.0 / 100 (Grade A - Outstanding)**.
+
+---
+
+## 🎙️ Technical Interview Pitch (STAR Methodology)
+
+> *“In my work at Apex Bank, I architected the AI FinOps framework to ensure our LLM systems were both mathematically profitable and resilient against production failures. My scope extended far beyond traditional functional QA: I modeled unit cost per transaction down to fractions of a cent, engineered circuit breakers to prevent runaway cloud bills when local GPU clusters degrade, and implemented pre-execution filters blocking Denial of Wallet attacks. This framework achieved a 96.5% cost reduction under crisis conditions while ensuring strict DORA and EU AI Act compliance prior to CAB production sign-off.”*
 """
     dest = Path(output_path)
     dest.write_text(content, encoding="utf-8")

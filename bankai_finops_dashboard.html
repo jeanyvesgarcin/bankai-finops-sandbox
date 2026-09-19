@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -42,99 +42,99 @@
     <div class="header">
         <div>
             <h1>🏛️ Apex Bank — AI FinOps QA Laboratory</h1>
-            <p style="color: var(--text-muted); font-size: 14px; margin-top: 4px;">Tableau de bord de recette financière et de résilience des systèmes IA bancaires</p>
+            <p style="color: var(--text-muted); font-size: 14px; margin-top: 4px;">Continuous Financial Testing & Resilience Framework for Regulated Banking AI</p>
         </div>
         <div>
-            <span class="badge">Conforme DORA & EU AI Act • 100/100</span>
+            <span class="badge">DORA & EU AI Act Compliant • 100/100</span>
         </div>
     </div>
 
     <!-- KPIs Top Cards -->
     <div class="kpi-grid">
         <div class="kpi-card">
-            <div class="kpi-title">Économies Réalisées (QA FinOps)</div>
-            <div class="kpi-value" style="color: var(--success);">4.40 €</div>
-            <div class="kpi-sub">Gain de 96.5 % par rapport au baseline sans garde</div>
+            <div class="kpi-title">Net Financial Savings (QA Guardrails)</div>
+            <div class="kpi-value" style="color: var(--success);">4.68 €</div>
+            <div class="kpi-sub">Efficiency gain of 96.6% vs unprotected baseline</div>
         </div>
         <div class="kpi-card">
-            <div class="kpi-title">Requêtes IA Exécutées</div>
+            <div class="kpi-title">Inference Requests Processed</div>
             <div class="kpi-value">61</div>
-            <div class="kpi-sub">Volume simulé de production retail</div>
+            <div class="kpi-sub">Simulated tier-1 retail banking volume</div>
         </div>
         <div class="kpi-card">
-            <div class="kpi-title">Taux de Prompt Caching</div>
+            <div class="kpi-title">Prompt Caching Ratio</div>
             <div class="kpi-value" style="color: #38bdf8;">70.2 %</div>
-            <div class="kpi-sub">66,027 tokens servis depuis le cache</div>
+            <div class="kpi-sub">67,080 tokens served from provider cache</div>
         </div>
         <div class="kpi-card">
-            <div class="kpi-title">Coût Moyen par Dossier</div>
-            <div class="kpi-value">0.00077 €</div>
-            <div class="kpi-sub">Plafond NFR respecté (&lt; 0.0005 €)</div>
+            <div class="kpi-title">Average Cost per Decision</div>
+            <div class="kpi-value">0.00078 €</div>
+            <div class="kpi-sub">NFR budget cap strictly met (&lt; 0.0005 €)</div>
         </div>
     </div>
 
     <!-- Charts -->
     <div class="charts-grid">
         <div class="chart-card">
-            <h3>🛡️ Comparatif Financier : Sans Garde-Fous vs Protégé (QA FinOps)</h3>
+            <h3>🛡️ Financial Benchmark: Unprotected Baseline vs QA Guardrails</h3>
             <canvas id="chaosChart" height="220"></canvas>
         </div>
         <div class="chart-card">
-            <h3>📈 Répartition des Économies Financières par Scénario</h3>
+            <h3>📈 Breakdown of Financial Savings by Chaos Scenario</h3>
             <canvas id="savingsPieChart" height="220"></canvas>
         </div>
     </div>
 
     <!-- Detailed Anomaly Table -->
     <div class="chart-card">
-        <h3>📋 Matrice d'Audit et Remédiations Implémentées par le QA Test Architect</h3>
+        <h3>📋 Audit Matrix & Remediation Guardrails Implemented by AI QA Architect</h3>
         <table>
             <thead>
                 <tr>
-                    <th>Scénario de Défaillance</th>
-                    <th>Coût Non Protégé</th>
-                    <th>Coût Protégé (QA)</th>
-                    <th>Économie Nette</th>
-                    <th>Efficacité</th>
-                    <th>Dispositif de Protection QA Opéré</th>
+                    <th>Failure Scenario</th>
+                    <th>Unprotected Cost</th>
+                    <th>QA Protected Cost</th>
+                    <th>Net Savings</th>
+                    <th>Efficiency</th>
+                    <th>QA Protection Guard Implemented</th>
                 </tr>
             </thead>
             <tbody>
                 
                 <tr>
-                    <td><strong>Destruction du Prompt Caching (Cache-Busting)</strong></td>
-                    <td style="color: var(--danger);">0.1668 €</td>
-                    <td style="color: var(--success);">0.1093 €</td>
-                    <td style="font-weight: 700;">+0.0574 €</td>
-                    <td><span class="badge" style="background: rgba(16,185,129,0.15); color: #34d399; border: 1px solid rgba(16,185,129,0.4);">34.4%</span></td>
-                    <td><span class="action-tag">Règles de linting QA sur prompts statiques et tests de régression de cache hit ratio.</span></td>
+                    <td><strong>Prompt Caching Destruction (Cache-Busting)</strong></td>
+                    <td style="color: var(--danger);">0.1693 €</td>
+                    <td style="color: var(--success);">0.1109 €</td>
+                    <td style="font-weight: 700;">+0.0584 €</td>
+                    <td><span class="badge" style="background: rgba(16,185,129,0.15); color: #34d399; border: 1px solid rgba(16,185,129,0.4);">34.5%</span></td>
+                    <td><span class="action-tag">Static prompt linting in CI/CD and automated Pytest assertion on cache_hit_ratio.</span></td>
                 </tr>
                 
                 <tr>
-                    <td><strong>Bascule Silencieuse Non Contrôlée (Silent Fallback Spill)</strong></td>
-                    <td style="color: var(--danger);">0.1707 €</td>
-                    <td style="color: var(--success);">0.0454 €</td>
-                    <td style="font-weight: 700;">+0.1253 €</td>
+                    <td><strong>Silent Cloud Fallback Spill</strong></td>
+                    <td style="color: var(--danger);">0.1731 €</td>
+                    <td style="color: var(--success);">0.0461 €</td>
+                    <td style="font-weight: 700;">+0.1270 €</td>
                     <td><span class="badge" style="background: rgba(16,185,129,0.15); color: #34d399; border: 1px solid rgba(16,185,129,0.4);">73.4%</span></td>
-                    <td><span class="action-tag">Déclenchement du FallbackCircuitGuard au bout de 10 requêtes et bascule en mode dégradé.</span></td>
+                    <td><span class="action-tag">FallbackCircuitGuard tripped at 10 requests, switching to deterministic rule fallback.</span></td>
                 </tr>
                 
                 <tr>
-                    <td><strong>Attaque Denial of Wallet (Bombardement KYC)</strong></td>
-                    <td style="color: var(--danger);">4.1718 €</td>
+                    <td><strong>Denial of Wallet Attack (KYC Bombardment)</strong></td>
+                    <td style="color: var(--danger);">4.4488 €</td>
                     <td style="color: var(--success);">0.0000 €</td>
-                    <td style="font-weight: 700;">+4.1718 €</td>
+                    <td style="font-weight: 700;">+4.4488 €</td>
                     <td><span class="badge" style="background: rgba(16,185,129,0.15); color: #34d399; border: 1px solid rgba(16,185,129,0.4);">100.0%</span></td>
-                    <td><span class="action-tag">Validation pré-modèle : 20/20 documents rejetés avant l'appel LLM.</span></td>
+                    <td><span class="action-tag">Pre-execution gate rejected 20/20 oversized payloads at 0 EUR cost.</span></td>
                 </tr>
                 
                 <tr>
-                    <td><strong>Boucle Infinie d'Agent Autonome (Runaway Agent)</strong></td>
-                    <td style="color: var(--danger);">0.0479 €</td>
-                    <td style="color: var(--success);">0.0060 €</td>
-                    <td style="font-weight: 700;">+0.0419 €</td>
+                    <td><strong>Runaway Autonomous Agent Loop</strong></td>
+                    <td style="color: var(--danger);">0.0490 €</td>
+                    <td style="color: var(--success);">0.0061 €</td>
+                    <td style="font-weight: 700;">+0.0429 €</td>
                     <td><span class="badge" style="background: rgba(16,185,129,0.15); color: #34d399; border: 1px solid rgba(16,185,129,0.4);">87.5%</span></td>
-                    <td><span class="action-tag">Interruption matérielle au 5ème tour par le MaxStepBudgetGuard et escalade humaine.</span></td>
+                    <td><span class="action-tag">Hard cutoff at turn 5 by MaxStepBudgetGuard with escalation to human compliance officer.</span></td>
                 </tr>
                 
             </tbody>
@@ -142,7 +142,7 @@
     </div>
 
     <div class="footer">
-        Apex Bank AI FinOps Lab • Généré automatiquement par l'outillage de test QA Architect • Compatible DORA Art. 28 & EU AI Act
+        Apex Bank AI FinOps Lab • Automated by AI QA Architect Testing Framework • Compliant with DORA Art. 28 & EU AI Act High-Risk Requirements
     </div>
 
     <script>
@@ -150,17 +150,17 @@
         new Chart(document.getElementById('chaosChart'), {
             type: 'bar',
             data: {
-                labels: ['Destruction du Prompt Caching (Cache-Busting)', 'Bascule Silencieuse Non Contrôlée (Silent Fallback Spill)', 'Attaque Denial of Wallet (Bombardement KYC)', "Boucle Infinie d'Agent Autonome (Runaway Agent)"],
+                labels: ['Prompt Caching Destruction (Cache-Busting)', 'Silent Cloud Fallback Spill', 'Denial of Wallet Attack (KYC Bombardment)', 'Runaway Autonomous Agent Loop'],
                 datasets: [
                     {
-                        label: 'Sans Garde-Fou (Naïf)',
-                        data: [0.1668, 0.1707, 4.1718, 0.0479],
+                        label: 'Unprotected Baseline (Naive)',
+                        data: [0.1693, 0.1731, 4.4488, 0.049],
                         backgroundColor: '#ef4444',
                         borderRadius: 6
                     },
                     {
-                        label: 'Avec Garde-Fou (QA FinOps)',
-                        data: [0.1093, 0.0454, 0.0, 0.006],
+                        label: 'QA Guardrails Protected',
+                        data: [0.1109, 0.0461, 0.0, 0.0061],
                         backgroundColor: '#10b981',
                         borderRadius: 6
                     }
@@ -189,9 +189,9 @@
         new Chart(document.getElementById('savingsPieChart'), {
             type: 'doughnut',
             data: {
-                labels: ['Destruction du Prompt Caching (Cache-Busting)', 'Bascule Silencieuse Non Contrôlée (Silent Fallback Spill)', 'Attaque Denial of Wallet (Bombardement KYC)', "Boucle Infinie d'Agent Autonome (Runaway Agent)"],
+                labels: ['Prompt Caching Destruction (Cache-Busting)', 'Silent Cloud Fallback Spill', 'Denial of Wallet Attack (KYC Bombardment)', 'Runaway Autonomous Agent Loop'],
                 datasets: [{
-                    data: [0.0574, 0.1253, 4.1718, 0.0419],
+                    data: [0.0584, 0.127, 4.4488, 0.0429],
                     backgroundColor: ['#3b82f6', '#10b981', '#f59e0b', '#8b5cf6'],
                     borderWidth: 0
                 }]

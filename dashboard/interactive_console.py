@@ -18,27 +18,27 @@ if hasattr(sys.stdout, "reconfigure"):
 def print_banner():
     print("=" * 72)
     print(" 🏛️  APEX BANK — AI FINOPS OPERATIONAL SANDBOX & LAB ")
-    print(" Framework de Recette Financière & Résilience IA pour AI Test Architect ")
+    print(" Continuous Financial Testing & Resilience Framework for AI QA Architects ")
     print("=" * 72)
 
 def print_live_metrics_card(metrics: Dict[str, Any]):
     print("\n" + "-" * 72)
-    print(" 📊 TABLEAU DE BORD TÉLÉMÉTRIQUE EN DIRECT (REAL-TIME METRICS) ")
+    print(" 📊 REAL-TIME TELEMETRY DASHBOARD ")
     print("-" * 72)
-    print(f"  • Requêtes traitées        : {metrics.get('total_requests', 0):,}")
-    print(f"  • Volume de Tokens         : {metrics.get('total_tokens', 0):,} tokens")
-    print(f"  • Tokens en Cache Préfixe  : {metrics.get('total_cached_tokens', 0):,} tokens")
-    print(f"  • Taux d'utilisation Cache : {metrics.get('global_cache_hit_ratio', 0.0):.2f} %")
-    print(f"  • Dépense Cumulée          : {metrics.get('total_cost_eur', 0.0):.4f} €")
-    print(f"  • Coût Moyen par Requête   : {metrics.get('avg_cost_per_request_eur', 0.0):.6f} €")
-    print(f"  • Coût pour 1,000 Requêtes : {metrics.get('cost_per_1k_requests_eur', 0.0):.4f} €")
+    print(f"  • Requests Processed      : {metrics.get('total_requests', 0):,}")
+    print(f"  • Total Token Volume      : {metrics.get('total_tokens', 0):,} tokens")
+    print(f"  • Prefix Cached Tokens    : {metrics.get('total_cached_tokens', 0):,} tokens")
+    print(f"  • Cache Utilization Ratio : {metrics.get('global_cache_hit_ratio', 0.0):.2f} %")
+    print(f"  • Cumulative Expenditure  : {metrics.get('total_cost_eur', 0.0):.4f} €")
+    print(f"  • Average Cost per Req    : {metrics.get('avg_cost_per_request_eur', 0.0):.6f} €")
+    print(f"  • Cost per 1,000 Requests : {metrics.get('cost_per_1k_requests_eur', 0.0):.4f} €")
     print("-" * 72)
 
 def print_anomaly_table(results: List[AnomalyResult]):
     print("\n" + "=" * 72)
-    print(" 🛡️  RÉSULTATS DES SCÉNARIOS DE CHAOS & D'ANOMALIES FINANCIÈRES ")
+    print(" 🛡️  FINANCIAL CHAOS SCENARIOS & ANOMALY INJECTION RESULTS ")
     print("=" * 72)
-    print(f"{'Scénario de Chaos':<32} | {'Sans Garde':<10} | {'Avec Garde':<10} | {'Économie (€)':<12} | {'Gain %'}")
+    print(f"{'Chaos Scenario':<32} | {'Baseline':<10} | {'QA Guard':<10} | {'Savings (€)':<12} | {'Gain %'}")
     print("-" * 72)
 
     total_unprot = 0.0
@@ -53,31 +53,31 @@ def print_anomaly_table(results: List[AnomalyResult]):
     total_pct = (total_savings / max(0.0001, total_unprot)) * 100.0
 
     print("-" * 72)
-    print(f"{'TOTAL CONSOLIDÉ':<32} | {total_unprot:>8.4f} € | {total_prot:>8.4f} € | {total_savings:>10.4f} € | {total_pct:>5.1f} %")
+    print(f"{'CONSOLIDATED TOTAL':<32} | {total_unprot:>8.4f} € | {total_prot:>8.4f} € | {total_savings:>10.4f} € | {total_pct:>5.1f} %")
     print("=" * 72)
 
-    print("\n💡 SYNTHÈSE DE LA VALEUR APPORTÉE PAR L'AI TEST ARCHITECT :")
+    print("\n💡 AI TEST ARCHITECT VALUE SUMMARY :")
     for r in results:
         print(f"  [✓] {r.name} :")
-        print(f"      Action QA : {r.remediation_action}")
-        print(f"      Impact   : {r.savings_eur:.4f} € économisés immédiatement sur ce run.\n")
+        print(f"      QA Remediation : {r.remediation_action}")
+        print(f"      Financial ROI  : {r.savings_eur:.4f} € saved immediately on this run.\n")
 
 def print_portfolio_instructions():
     print("=" * 72)
-    print(" 🚀 COMMENT VALORISER CE PROJET DANS VOTRE PORTFOLIO & CV ")
+    print(" 🚀 HOW TO SHOWCASE THIS LAB IN YOUR PORTFOLIO & INTERVIEWS ")
     print("=" * 72)
     print("""
-1. GitHub Repository :
-   Publiez ce dossier sous le nom `bankai-finops-sandbox`.
-   Le fichier `PORTFOLIO_CASE_STUDY.md` généré est prêt à l'emploi.
+1. GitHub Repository:
+   Published at: https://github.com/jeanyvesgarcin/bankai-finops-sandbox
+   The generated `PORTFOLIO_CASE_STUDY.md` is ready to be showcased.
 
-2. Sur votre Profil LinkedIn & CV :
-   Titre : AI Test Architect / AI FinOps Lead
-   Projet phare : "Apex Bank AI FinOps Lab — Framework de contrôle de dérive
-   budgétaire et résilience financière des systèmes LLM bancaires régulés."
+2. On your LinkedIn & Resume:
+   Title: AI Test Architect / AI FinOps Lead
+   Featured Project: "Apex Bank AI FinOps Lab — Continuous Financial Testing
+   Framework & Resilience Guardrails for Regulated Banking LLMs."
 
-3. En Entretien d'Embauche :
-   Présentez les 4 anomalies de chaos et comment vos tests automatisés ont évité
-   une dérive de 70% à 95% des coûts par rapport à une implémentation naïve.
+3. In Technical Job Interviews:
+   Present the 4 chaos scenarios and demonstrate how your automated tests
+   prevented a 70% to 95% budget overrun compared to a naive deployment.
 """)
     print("=" * 72)

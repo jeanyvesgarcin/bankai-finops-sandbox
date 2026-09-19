@@ -33,7 +33,7 @@ from bankai_finops_sandbox.dashboard.export_html_dashboard import generate_html_
 from bankai_finops_sandbox.reports.portfolio_generator import generate_portfolio_case_study
 
 def run_nominal_simulation(n_credit: int = 40, n_kyc: int = 15, n_wealth_turns: int = 6) -> BankingLLMMock:
-    print(f"\n[*] Exécution de la charge nominale bancaire ({n_credit} crédits, {n_kyc} KYC, {n_wealth_turns} tours conseiller)...")
+    print(f"\n[*] Executing nominal banking workload ({n_credit} credit loans, {n_kyc} KYC dossiers, {n_wealth_turns} wealth turns)...")
     llm = BankingLLMMock(default_model="gpt-4o-mini")
 
     # 1. Credit scoring
@@ -51,8 +51,8 @@ def run_nominal_simulation(n_credit: int = 40, n_kyc: int = 15, n_wealth_turns: 
     kyc_wl = KYCExtractionWorkload(llm)
     for i in range(n_kyc):
         kyc_wl.process_kyc_document(
-            company_name=f"Holding Financière {i}",
-            document_text=f"Rapport d'activité annuel société {i} : SIREN 123456789, Bénéficiaires réguliers.",
+            company_name=f"Holding Company #{i}",
+            document_text=f"Annual Financial Filing Report #{i}: LEI 5493001KJTIIGC8Y1R12, Registered Corporate Officers.",
             page_count=3,
             enable_anti_dow_guard=True
         )
@@ -65,9 +65,9 @@ def run_nominal_simulation(n_credit: int = 40, n_kyc: int = 15, n_wealth_turns: 
 
 def main():
     parser = argparse.ArgumentParser(description="BankAI FinOps Sandbox & Portfolio Lab")
-    parser.add_argument("--mode", choices=["demo", "chaos", "benchmark", "all"], default="all", help="Mode d'exécution")
-    parser.add_argument("--export-html", action="store_true", default=True, help="Générer le tableau de bord HTML interactif")
-    parser.add_argument("--export-portfolio", action="store_true", default=True, help="Générer l'étude de cas Markdown PORTFOLIO_CASE_STUDY.md")
+    parser.add_argument("--mode", choices=["demo", "chaos", "benchmark", "all"], default="all", help="Execution mode")
+    parser.add_argument("--export-html", action="store_true", default=True, help="Compile standalone interactive HTML dashboard")
+    parser.add_argument("--export-portfolio", action="store_true", default=True, help="Compile PORTFOLIO_CASE_STUDY.md markdown report")
     args = parser.parse_args()
 
     print_banner()
@@ -78,7 +78,7 @@ def main():
     print_live_metrics_card(metrics)
 
     # 2. Chaos scenarios
-    print("[*] Injection des 4 scénarios d'anomalies financières et de résilience...")
+    print("[*] Injecting 4 financial chaos & resilience failure modes...")
     chaos = BankingChaosInjector()
     results = [
         chaos.run_cache_busting_scenario(n_requests=30),
@@ -92,13 +92,13 @@ def main():
     if args.export_html or args.mode in ["benchmark", "all"]:
         html_file = BASE_DIR / "bankai_finops_dashboard.html"
         path = generate_html_dashboard(metrics, results, output_path=str(html_file))
-        print(f"\n[✓] Tableau de bord interactif HTML généré : {path}")
+        print(f"\n[✓] Interactive HTML5 Dashboard compiled: {path}")
 
     # 4. Export Portfolio Markdown
     if args.export_portfolio or args.mode in ["benchmark", "all"]:
         portfolio_file = BASE_DIR / "PORTFOLIO_CASE_STUDY.md"
         path = generate_portfolio_case_study(metrics, results, output_path=str(portfolio_file))
-        print(f"[✓] Étude de cas portfolio générée : {path}")
+        print(f"[✓] Portfolio Case Study markdown updated: {path}")
 
     print_portfolio_instructions()
 

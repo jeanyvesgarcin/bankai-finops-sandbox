@@ -11,51 +11,51 @@ from typing import Dict, List, Any, Optional
 import random
 from .banking_llm_mock import BankingLLMMock, LLMResponse
 
-# 2,500 tokens of strict regulatory credit rules (EBA Guidelines, Bâle IV, ACPR)
+# 2,500 tokens of strict regulatory credit rules (EBA Guidelines, Basel IV, ACPR)
 CREDIT_SCORING_REGULATORY_PROMPT = """
-RÉGLEMENTATION BANCAIRE EUROPÉENNE & INTERNE — OCTROI DE CRÉDIT RETAIL (BÂLE IV / EBA / ACPR)
-Vous êtes le moteur d'évaluation des risques de crédit de la banque Apex. Vous devez appliquer strictement les règles suivantes :
-ARTICLE 1 : TAUX D'EFFORT (DEBT-TO-INCOME RATIO - DTI)
-1. Le taux d'endettement maximal autorisé est de 35.00% assurance comprise.
-2. Tout dépassement au-delà de 35.00% nécessite une dérogation expresse accordée uniquement si le reste à vivre par personne est supérieur à 1500 EUR.
-ARTICLE 2 : SCORING DE CRÉDIT & PROBABILITÉ DE DÉFAUT (PD)
-1. Tout dossier avec un score interne FICO < 650 est classé en Risque Élevé et doit être rejeté ou réorienté vers une analyse manuelle par un analyste niveau 3.
-2. Un score compris entre 650 et 720 autorise un octroi sous condition d'un apport personnel minimal de 15%.
-3. Un score supérieur à 720 autorise un accord de principe automatique avec taux bonifié.
-ARTICLE 3 : CONFORMITÉ EU AI ACT (SYSTÈME HAUT RISQUE ANNEXE III)
-Ce système est classifié Haut Risque au sens de l'Article 6 et Annexe III du Règlement UE 2024/1689.
-Toute décision de rejet doit obligatoirement expliciter les facteurs déterminants de manière intelligible et non discriminatoire.
-Interdiction formelle d'utiliser des critères d'origine géographique, de genre, d'âge ou d'état de santé dans le calcul de la note de crédit.
-ARTICLE 4 : MATRICE DES PONDÉRATIONS DE RISQUE PONDÉRÉES (RWA)
-Pour chaque euro prêté, la banque immobilise des fonds propres prudentiels selon la catégorie de solvabilité :
-- Catégorie A (Excellente solvabilité) : Pondération RWA = 20%, Fonds propres Tier 1 requis = 8%.
-- Catégorie B (Bonne solvabilité) : Pondération RWA = 35%, Fonds propres Tier 1 requis = 8%.
-- Catégorie C (Solvabilité modérée) : Pondération RWA = 75%, Fonds propres Tier 1 requis = 8%.
-- Catégorie D (Risque spéculatif) : Pondération RWA = 150%, Accord automatisé strictement interdit.
-ARTICLE 5 : PROTOCOLE D'AUDITABILITÉ ET LOGS
-Chaque évaluation doit produire une trace chiffrée horodatée conforme DORA Art. 12 et stockée pendant 10 ans.
+EUROPEAN & INTERNAL BANKING REGULATION — RETAIL CREDIT DECISIONING (BASEL IV / EBA / ACPR)
+You are the credit risk underwriting engine of Apex Bank. You must strictly enforce the following rules:
+ARTICLE 1: DEBT-TO-INCOME RATIO (DTI) LIMITS
+1. The maximum allowable debt-to-income ratio is 35.00% including loan insurance.
+2. Any exception beyond 35.00% requires express executive sign-off and is granted only if disposable residual income per person exceeds 1,500 EUR/month.
+ARTICLE 2: CREDIT SCORING & PROBABILITY OF DEFAULT (PD)
+1. Any applicant file with an internal FICO/credit score < 650 is classified as High Risk and must be automatically rejected or routed to manual Tier-3 credit analysis.
+2. A score between 650 and 720 allows conditional approval subject to a minimum personal cash down payment of 15%.
+3. A score above 720 qualifies for automatic pre-approval with preferential interest rates.
+ARTICLE 3: EU ARTIFICIAL INTELLIGENCE ACT COMPLIANCE (ANNEX III HIGH-RISK SYSTEM)
+This credit decisioning system is classified as High Risk pursuant to Article 6 and Annex III of Regulation (EU) 2024/1689.
+Any adverse or rejection decision must explicitly state the determining factors in an intelligible and non-discriminatory manner.
+It is strictly prohibited to utilize geographical origin, gender, age, or health data in calculating creditworthiness scores.
+ARTICLE 4: RISK-WEIGHTED ASSETS (RWA) CAPITAL BUFFER MATRIX
+For every euro lent, the bank provisions regulatory Tier-1 prudential capital according to solvency categories:
+- Solvency Category A (Prime): Risk weight = 20%, Minimum Tier-1 capital requirement = 8.0%.
+- Solvency Category B (Upper Medium): Risk weight = 35%, Minimum Tier-1 capital requirement = 8.0%.
+- Solvency Category C (Lower Medium): Risk weight = 75%, Minimum Tier-1 capital requirement = 8.0%.
+- Solvency Category D (Subprime): Risk weight = 150%, Automated approval strictly prohibited.
+ARTICLE 5: AUDIT TRAIL AND LOG INTEGRITY PROTOCOL
+Every automated underwriting assessment must produce an immutable, timestamped audit record compliant with DORA Art. 12 and retained for 10 years.
 """.strip() * 3  # Repeats to guarantee > 1,500 tokens for prefix cache eligibility
 
 KYC_EXTRACTION_SYSTEM_PROMPT = """
-ANALYSE DE CONFORMITÉ KYC & UBO (LUTTE ANTI-BLANCHIMENT / LCB-FT / 5TH AML DIRECTIVE)
-Vous êtes l'analyste virtuel KYC chargé de vérifier l'authenticité des pièces justificatives d'entreprises :
-1. Extraction du numéro SIREN/SIRET et contrôle de concordance avec l'extrait Kbis.
-2. Détection des Bénéficiaires Effectifs (UBO) détenant plus de 25% du capital direct ou indirect.
-3. Vérification du statut de Personne Politiquement Exposée (PPE) et croisement avec les listes de sanctions internationales (OFAC, UE, ONU).
-4. Détection de falsifications visuelles, incohérences de polices de caractères ou métadonnées suspectes.
+CORPORATE KYC & UBO COMPLIANCE ENGINE (5TH EU AML DIRECTIVE / FATF STANDARDS)
+You are the automated compliance analyst verifying legal corporate entity documentation:
+1. Legal Entity Identifier (LEI/SIREN) verification and concordance cross-check with Certificate of Incorporation.
+2. Identification of Ultimate Beneficial Owners (UBO) holding directly or indirectly over 25.0% of share capital or voting rights.
+3. Screening against Politically Exposed Persons (PEP) registries and international sanctions lists (OFAC, EU, UN).
+4. Anomaly detection for forged documents, font inconsistencies, and suspicious digital metadata manipulation.
 """.strip() * 3
 
 WEALTH_COPILOT_SYSTEM_PROMPT = """
-ASSISTANT CONSEILLER EN GESTION DE PATRIMOINE (PRIVATE BANKING & MIFID II)
-Vous assistez les banquiers privés dans la structuration des portefeuilles d'actifs pour les clients fortunés (HNWI).
-RÈGLES MIFID II IMPÉRATIVES :
-1. Profil de risque : Toute recommandation doit respecter strictement l'appétence au risque déclarée par le client (Prudent, Équilibré, Dynamique, Offensif).
-2. Diversification : Aucun actif individuel ne doit représenter plus de 10% de la valeur liquidative totale hors immobilier.
-3. Transparence des frais : Révéler systématiquement les frais de gestion annuels et les rétrocessions d'OPCVM.
+PRIVATE BANKING WEALTH ADVISORY COPILOT (MIFID II COMPLIANT)
+You assist private wealth managers in structuring asset portfolios for High Net Worth Individuals (HNWI).
+MANDATORY MIFID II CONDUCT OF BUSINESS RULES:
+1. Suitability & Risk Profile: All asset allocation recommendations must strictly adhere to the client's declared risk profile (Conservative, Balanced, Dynamic, Aggressive).
+2. Diversification Limits: No single non-sovereign asset or issuer may represent more than 10.0% of total portfolio net asset value (NAV).
+3. Fee Transparency: Systematically disclose ongoing fund expense ratios, performance fees, and distribution retrocessions.
 """.strip() * 2
 
 class CreditScoringWorkload:
-    """Workload 1 : Octroi de crédit retail en fort volume."""
+    """Workload 1 : High-volume retail credit underwriting."""
     def __init__(self, llm: BankingLLMMock):
         self.llm = llm
 
@@ -71,17 +71,17 @@ class CreditScoringWorkload:
     ) -> LLMResponse:
         system_prompt = CREDIT_SCORING_REGULATORY_PROMPT
         if use_cache_busting:
-            # Anomaly : Dynamic timestamp / random salt at the start of system prompt destroys cache!
+            # Anomaly: Dynamic timestamp or random UUID prepended to system prompt destroys prefix cache!
             salt = f"// TRANSACTION_ID: {applicant_id}_{random.random()}_{random.randint(100000, 999999)}\n"
             system_prompt = salt + system_prompt
 
         user_content = (
-            f"DOSSIER CRÉDIT ID: {applicant_id}\n"
-            f"Revenus mensuels nets: {income_eur} EUR\n"
-            f"Montant emprunté demandé: {loan_amount_eur} EUR\n"
-            f"Charges d'emprunt existantes: {monthly_debt_eur} EUR\n"
-            f"Score de crédit interne FICO: {credit_score}\n"
-            f"Veuillez évaluer l'éligibilité et calculer le taux d'effort."
+            f"CREDIT APPLICATION ID: {applicant_id}\n"
+            f"Net Monthly Income: {income_eur} EUR\n"
+            f"Requested Loan Principal: {loan_amount_eur} EUR\n"
+            f"Existing Monthly Debt Obligations: {monthly_debt_eur} EUR\n"
+            f"Internal FICO Credit Score: {credit_score}\n"
+            f"Please assess applicant eligibility and compute debt-to-income ratio."
         )
 
         messages = [
@@ -93,7 +93,7 @@ class CreditScoringWorkload:
 
 
 class KYCExtractionWorkload:
-    """Workload 2 : Extraction documentaire KYC avec protection Anti-DoW."""
+    """Workload 2 : Corporate KYC document extraction with Anti-DoW pre-validation guard."""
     def __init__(self, llm: BankingLLMMock):
         self.llm = llm
 
@@ -108,12 +108,12 @@ class KYCExtractionWorkload:
     ) -> Dict[str, Any]:
         doc_size_bytes = len(document_text.encode("utf-8"))
 
-        # QA FinOps Guard : Pre-validation check before spending LLM tokens
+        # QA FinOps Guard : Pre-validation check before spending expensive LLM tokens
         if enable_anti_dow_guard:
             if page_count > max_pages_allowed or doc_size_bytes > max_bytes_allowed:
                 return {
                     "status": "REJECTED_BY_ANTI_DOW",
-                    "reason": f"Document trop volumineux ({page_count} pages, {doc_size_bytes} octets). Seuil max: {max_pages_allowed} pages / {max_bytes_allowed} octets.",
+                    "reason": f"Document too large ({page_count} pages, {doc_size_bytes} bytes). Allowed threshold: {max_pages_allowed} pages / {max_bytes_allowed} bytes.",
                     "cost_eur": 0.0,
                     "tokens_saved": int(doc_size_bytes / 3.8),
                     "financial_saving_eur": round((doc_size_bytes / 3.8 / 1_000_000.0) * 2.50 * 0.92, 4)
@@ -121,7 +121,7 @@ class KYCExtractionWorkload:
 
         messages = [
             {"role": "system", "content": KYC_EXTRACTION_SYSTEM_PROMPT},
-            {"role": "user", "content": f"Entreprise: {company_name}\nContenu du document extrait:\n{document_text}"}
+            {"role": "user", "content": f"Entity: {company_name}\nExtracted Document Content:\n{document_text}"}
         ]
         resp = self.llm.generate(messages, model="gpt-4o")
         return {
@@ -135,7 +135,7 @@ class KYCExtractionWorkload:
 
 
 class WealthCopilotWorkload:
-    """Workload 3 : Copilote de Banque Privée avec gestion de fenêtre glissante."""
+    """Workload 3 : Private Banking Wealth Copilot with sliding context window."""
     def __init__(self, llm: BankingLLMMock):
         self.llm = llm
 
@@ -149,10 +149,10 @@ class WealthCopilotWorkload:
         conversation_history: List[Dict[str, str]] = []
 
         for turn in range(1, num_turns + 1):
-            user_msg = f"Tour {turn} : Client souhaite analyser l'impact fiscal d'un arbitrage de 250k EUR vers un fonds obligataire Daté."
+            user_msg = f"Turn {turn}: Client requests portfolio rebalancing analysis of 250k EUR into Target-Maturity Bond Funds."
 
             if enable_sliding_window and len(conversation_history) > (max_history_turns * 2):
-                # Retain system prompt + summarized context + last 2 exchanges
+                # Retain system prompt + summarized context + last 2 turns
                 active_history = conversation_history[-(max_history_turns * 2):]
             else:
                 active_history = conversation_history
@@ -162,7 +162,7 @@ class WealthCopilotWorkload:
             resp = self.llm.generate(messages, model="gpt-4o-mini")
             responses.append(resp)
 
-            # Record in full history
+            # Record in conversation log
             conversation_history.append({"role": "user", "content": user_msg})
             conversation_history.append({"role": "assistant", "content": resp.content})
 
